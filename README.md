@@ -47,8 +47,8 @@ Before you can run the applications, make sure you have the following prerequisi
 
 ## Running the React.js Application
 
-1.  Clone this repository to your local machine `git clone` [https://github.com/your-username/your-project.git](https://github.com/kindyluv/credit-card-validator.git).
-2. `cd creditCardValidator/frontend`.
+1.  Clone this repository to your local machine `git clone` [https://github.com/kindyluv/credit-card-validator.git](https://github.com/kindyluv/credit-card-validator.git).
+2. Run `cd creditCardValidator/frontend`.
 3. Run `yarn` to resolve your dependencies.
 4. Run `yarn run start` to start the frontend application.
 5. Once the development server starts, open a web browser and go to `http://localhost:3000` to access the React.js application.
@@ -57,7 +57,7 @@ Before you can run the applications, make sure you have the following prerequisi
 ## Running the Spring Boot Java Application
 
 1. Navigate to the Spring Boot Java project directory.
-2. `cd creditCardValidator/backend`
+2. Run `cd creditCardValidator/backend`
 3. Run `./mvnw clean install`
 4. Run `./mvnw spring-boot:run`
 5. The Spring Boot application will start, and you can access it at `http://localhost:8080`.
