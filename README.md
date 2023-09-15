@@ -63,7 +63,7 @@ Before you can run the applications, make sure you have the following prerequisi
    
 ## Running the React.js Application
 
-1. Navigate to the frontend directory.
+1. Navigate to the creditCardValidator directory.
 2. Run `cd creditCardValidator/frontend`.
 3. Run `yarn` to resolve your dependencies.
 4. Run `yarn run start` to start the frontend application.
