@@ -32,7 +32,7 @@ public class ValidationUtil {
         int lastTwoDigitsOfCurrentYear = currentDate.getYear() - 2000;
         int differenceInYears = cardYear - lastTwoDigitsOfCurrentYear;
 
-        boolean isMonthInValidRange = cardMonth >= currentDate.getMonthValue() && currentDate.getMonthValue() <= 12;
+        boolean isMonthInValidRange = cardMonth >= currentDate.getMonthValue() && cardMonth <= 12;
         boolean isYearInValidRange = differenceInYears >= 0 && differenceInYears <= 4;
         
         return isMonthInValidRange && isYearInValidRange
