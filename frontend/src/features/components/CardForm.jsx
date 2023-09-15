@@ -49,13 +49,8 @@ const CardForm = () => {
       if (nextInputName) {
         inputRefs[nextInputName].current.focus();
       }
-    }
-    if (inputName !== 'cvv' && inputName === 'expiresMonth' && value.length === 2) {
-      const nextInputName = getNextInputName(inputName);
-      if (nextInputName) {
-        inputRefs[nextInputName].current.focus();
-      }
-    }    if (inputName !== 'cvv' && inputName === 'expiresYear' && value.length === 2) {
+    }   
+    if (inputName !== 'cvv' && inputName === 'expiresYear' && value.length === 2) {
       const nextInputName = getNextInputName(inputName);
       if (nextInputName) {
         inputRefs[nextInputName].current.focus();
