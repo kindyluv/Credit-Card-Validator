@@ -25,8 +25,8 @@ Before you can run the applications, make sure you have the following prerequisi
 4. After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
-   node -v
-   npm -v
+  `node -v
+   npm -v`
 
 ### Macos
 
@@ -34,8 +34,8 @@ Before you can run the applications, make sure you have the following prerequisi
 2. After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
-   node -v
-   npm -v
+   `node -v
+   npm -v`
 
 ### Linux (Ubuntu/Debian)
 
@@ -45,8 +45,8 @@ Before you can run the applications, make sure you have the following prerequisi
 4. After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
-   node -v
-   npm -v
+   `node -v
+   npm -v`
 
 ## Running the React.js Application
 
