@@ -12,7 +12,7 @@ public class ValidationUtil {
 
     public String checkCardNumberLength(String cardNumber) {
         return cardNumber.length() >= 16 & cardNumber.length() <= 19
-                ? "" : "Length of card number is wrong";
+                ? "success" : "Length of card number is wrong";
     }
 
     public String checkExpiryDate(String cardExpiryDate) {
@@ -58,7 +58,6 @@ public class ValidationUtil {
                 sumOfAllDigits += digit;
                 isAlternate = !isAlternate;
             }
-
             return sumOfAllDigits % 10 == 0 ? "" : "Card number failed Luhn's algorithm test";
         } catch (Exception e) {
             return "Card number must be numbers only";
