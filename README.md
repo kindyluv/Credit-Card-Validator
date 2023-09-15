@@ -54,10 +54,11 @@ Before you can run the applications, make sure you have the following prerequisi
 1. Clone this repository to your local machine
    ```shell
    git clone https://github.com/kindyluv/credit-card-validator.git
-3. Run `cd creditCardValidator/backend`
-4. Run `./mvnw clean install`
-5. Run `./mvnw spring-boot:run`
-6. The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
+
+2. Run `cd creditCardValidator/backend`
+3. Run `./mvnw clean install`
+4. Run `./mvnw spring-boot:run`
+5. The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
 
    
 ## Running the React.js Application
