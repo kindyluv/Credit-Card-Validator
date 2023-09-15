@@ -32,9 +32,11 @@ public class ValidationUtil {
         int lastTwoDigitsOfCurrentYear = currentDate.getYear() - 2000;
         int differenceInYears = cardYear - lastTwoDigitsOfCurrentYear;
 
-        return cardMonth >= currentDate.getMonthValue()
-                && (differenceInYears >= 0 && differenceInYears <= 4) //checking years difference is within permissible card lifetime
-        ? "" : "Expiry date must be within allowed card lifetime";
+        boolean isMonthInValidRange = cardMonth >= currentDate.getMonthValue() && cardMonth <= 12;
+        boolean isYearInValidRange = differenceInYears >= 0 && differenceInYears <= 4;
+        
+        return isMonthInValidRange && isYearInValidRange
+            ? "" : "Expiry date must be within allowed card lifetime";
     }
 
     public String checkCvv(String cardNumber, String cvv) {
