@@ -85,32 +85,28 @@ const CardForm = () => {
       console.log(data);
 
       const response = await axios.post(validateUrl, data);
-      if (response.status === 200) {
+      if(response.status === 200){
         setIsOpen(!isOpen);
         setColorChange('green');
-      } else if(response.status === 400){
-        setColorChange('red');
-        setIsRed(true)
-      }else {
-        setColorChange('red');
-        setIsRed(true)
       }
     } catch (error) {
       console.error('Error:', error);
+      setColorChange('red');
     } finally {
       setIsLoading(false);
     }
+  };
 
+  const getStyle = () => {
+    console.log(`\n\nCOLOUR ==> ${colorChange}\n`)
+    if (colorChange === 'green') return Styles.colorChange
+    else if (colorChange === 'red') return Styles.colorChangeRed
+    return Styles.cardValidator
   };
 
   return (
     <div className={`${Styles.container} ${isOpen && Styles.centerContainer}`}>
-      <div className={`${colorChange === 'green'
-          ? Styles.colorChange
-          : colorChange === 'red'
-          ? Styles.colorChangeRed
-          : Styles.cardValidator
-        }`} style={{backgroundColor: colorChange === 'green' ? 'green' : colorChange === 'red' ? 'red' : 'black'}}>
+      <div className={`${getStyle()}`} style={{backgroundColor: colorChange === 'green' ? 'green' : colorChange === 'red' ? 'red' : 'black'}}>
         <div className={Styles.cardPtag}>
           <p>Card Validator</p>
           <img src={CardLogo} alt="Card Validator" />
