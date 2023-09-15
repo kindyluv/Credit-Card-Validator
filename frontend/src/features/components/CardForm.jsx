@@ -103,7 +103,6 @@ const CardForm = () => {
   };
 
   const getStyle = () => {
-    console.log(`\n\nCOLOUR ==> ${colorChange}\n`)
     if (colorChange === 'green') return Styles.colorChange
     else if (colorChange === 'red') return Styles.colorChangeRed
     return Styles.cardValidator
