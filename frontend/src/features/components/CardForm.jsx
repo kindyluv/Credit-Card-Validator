@@ -90,8 +90,10 @@ const CardForm = () => {
       console.log(data);
 
       const response = await axios.post(validateUrl, data);
-      setIsOpen(!isOpen);
-      setColorChange('green');
+      if(response.status === 200){
+        setIsOpen(!isOpen);
+        setColorChange('green');
+      }
     } catch (error) {
       console.error('Error:', error);
       setColorChange('red');
