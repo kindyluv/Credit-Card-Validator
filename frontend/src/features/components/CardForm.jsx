@@ -4,6 +4,8 @@ import CheckerModal from '../reusables/CheckerModal';
 import axios from 'axios';
 import {validateUrl} from '../../api/Api';
 import CardLogo from '../../assets/CardLogo.svg';
+import GreenChecker from '../../assets/Checker.svg'
+import RedChecker from '../../assets/RedChecker.svg'
 
 const CardForm = () => {
   const [formData, setFormData] = useState ({
@@ -92,6 +94,7 @@ const CardForm = () => {
     } catch (error) {
       console.error('Error:', error);
       setColorChange('red');
+      setIsRed(!isRed)
     } finally {
       setIsLoading(false);
     }
@@ -249,8 +252,8 @@ const CardForm = () => {
           <button type="submit">{isLoading ? 'Loading...' : 'Submit'}</button>
         </div>
       </form>}
-      
-      {isOpen && <CheckerModal />}
+      {isRed && <CheckerModal img={RedChecker} text={'Invalid Credit Card'} btnText={'Try Again'}  />}
+      {isOpen && <CheckerModal img={GreenChecker} text={'Valid Credit Card'} btnText={'close Modal'} />}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import Marker from '../../assets/Checker.svg'
 
-const CheckerModal = () => {
+const CheckerModal = (props) => {
   const [isOpen, setIsOpen] = useState(true);
   const handleCloseModal = (e) => {
     e.preventDefault();
@@ -14,13 +13,13 @@ const CheckerModal = () => {
         <div style={ModalWrapper}>
           <div style={ContentWrapper}>
             <div style={ImageWrapper}>
-              <img src={Marker} alt='Marker' style={MarkerStyle} />
+              <img src={props.img} alt='Marker' style={MarkerStyle} />
             </div>
             <div style={TextWrapper}>
-              <p style={ValidCard}>Valid Credit Card</p>
+              <p style={ValidCard}>{props.text}</p>
             </div>
-            <button style={ButtonStyle} onClick={handleCloseModal}>
-              close Modal
+            <button style={props.btnText === 'close Modal' ? ButtonStyle : RedButtonStyle} onClick={handleCloseModal}>
+              {props.btnText}
             </button>
           </div>
         </div>
@@ -76,6 +75,17 @@ export const ImageWrapper = {
 export const TextWrapper = {
   margin: '3% 0%',
   padding: '0% 20px',
+};
+
+export const RedButtonStyle = {
+  margin: '2% 0% 5% 0%',
+  padding: '10px 16px',
+  backgroundColor: 'red',
+  color: 'white',
+  width: '70%',
+  borderRadius: '8px',
+  border: 'none',
+  textTransform: 'none',
 };
 
 export const ButtonStyle = {
