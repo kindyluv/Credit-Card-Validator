@@ -10,7 +10,7 @@ Before you can run the applications, make sure you have the following prerequisi
 
 1. **Node.js and npm**: You need Node.js (version 16 or later) and npm (Node Package Manager) installed on your system. If not, follow the steps below to install them.
 
-2. **Java Development Kit (JDK)**: You need a Java Development Kit (JDK) installed. We recommend using JDK 11 or later.
+2. **Java Development Kit (JDK)**: You need a Java Development Kit (JDK) installed. I recommend using JDK 11 or later.
 
 ## Installing Node.js and npm (Node Package Manager)
 
@@ -47,10 +47,10 @@ Before you can run the applications, make sure you have the following prerequisi
 
 ## Running the React.js Application
 
-1.  Clone this repository to your local machine `git clone [https://github.com/your-username/your-project.git](https://github.com/kindyluv/credit-card-validator.git
-)https://github.com/kindyluv/credit-card-validator.git`
+1.  Clone this repository to your local machine `git clone` [https://github.com/your-username/your-project.git](https://github.com/kindyluv/credit-card-validator.git
+)
 2. `cd creditCardValidator/frontend`
-3. Run `yar`n to resolve your dependencies
+3. Run `yarn` to resolve your dependencies
 4. Run `yarn run start` to start the frontend application
 5. Once the development server starts, open a web browser and go to `http://localhost:3000` to access the React.js application.
 
