@@ -55,7 +55,7 @@ Before you can run the applications, make sure you have the following prerequisi
    ```shell
    git clone https://github.com/kindyluv/credit-card-validator.git
 
-2. Run `cd creditCardValidator/backend`
+2. Run `cd creditCardValidator/backend/cardValidatingSystem`
 3. Run `./mvnw clean install`
 4. Run `./mvnw spring-boot:run`
 5. The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
