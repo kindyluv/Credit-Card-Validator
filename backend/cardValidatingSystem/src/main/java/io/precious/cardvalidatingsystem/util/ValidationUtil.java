@@ -16,15 +16,15 @@ public class ValidationUtil {
     }
 
     public String checkExpiryDate(String cardExpiryDate) {
-        if (cardExpiryDate.length() != 5) return "Length of expiry date is wrong";     // checking if the length of date string is valid
-        if (cardExpiryDate.charAt(2) != '/') return "Expiry date is in the wrong format";  // I'm checking the date string format
+        if (cardExpiryDate.length() != 5) return "Length of expiry date is wrong";
+        if (cardExpiryDate.charAt(2) != '/') return "Expiry date is in the wrong format";
 
         String[] monthAndYear = cardExpiryDate.split("/");
         int cardMonth;
         int cardYear;
         try {
-            cardMonth = Integer.parseInt(monthAndYear[0]);      // extracting month from date string and confirming it's a number
-            cardYear = Integer.parseInt(monthAndYear[1]);       // extracting year from date string and confirming it's a number
+            cardMonth = Integer.parseInt(monthAndYear[0]);
+            cardYear = Integer.parseInt(monthAndYear[1]);
         } catch (NumberFormatException ex) {
             return "Check expiry date month and/or year";
         }
@@ -48,7 +48,7 @@ public class ValidationUtil {
     public String checkWithLuhnsAlgo(String cardNumber) {
         try {
             int sumOfAllDigits = 0;
-            boolean isAlternate = false;                // to flag alternate positions
+            boolean isAlternate = false;
             for (int idx = cardNumber.length() - 1; idx >= 0; idx--) {
                 int digit = Integer.parseInt(String.valueOf(cardNumber.charAt(idx)));
                 if (isAlternate) {
