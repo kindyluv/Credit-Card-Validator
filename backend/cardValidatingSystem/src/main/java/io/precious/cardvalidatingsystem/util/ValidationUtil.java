@@ -12,7 +12,7 @@ public class ValidationUtil {
 
     public String checkCardNumberLength(String cardNumber) {
         return cardNumber.length() >= 16 & cardNumber.length() <= 19
-                ? "success" : "Length of card number is wrong";
+                ? "" : "Length of card number is wrong";
     }
 
     public String checkExpiryDate(String cardExpiryDate) {

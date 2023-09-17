@@ -27,7 +27,7 @@ public class ValidationUtilTest {
     void testCheckCardNumberLengthValid() {
         String cardNumber = "4111111111111111";
         String result = validationUtil.checkCardNumberLength(cardNumber);
-        assertEquals("success", result);
+        assertEquals("", result);
     }
 
     @Test

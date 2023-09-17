@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Objects;
 
+import static io.precious.cardvalidatingsystem.util.Constants.VALIDATION_SUCCESSFUL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +42,7 @@ public class CardServiceTest {
         ResponseEntity<CardValidationResponse> response = cardService.validateCard(cardDto);
 
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals("success", Objects.requireNonNull(response.getBody()).getValidationStatus());
+        assertEquals(VALIDATION_SUCCESSFUL, Objects.requireNonNull(response.getBody()).getValidationStatus());
     }
 
     @Test
