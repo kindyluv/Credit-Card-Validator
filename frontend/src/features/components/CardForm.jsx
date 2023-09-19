@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import Styles from '../styles/CardForm.module.css';
 import CheckerModal from '../reusables/CheckerModal';
 import axios from 'axios';
@@ -12,6 +12,7 @@ const CardForm = () => {
     cardNumberOne: '',
     cardNumberTwo: '',
     cardNumberThree: '',
+    americanExpressCard: '',
     cardNumberFour: '',
     expiresMonth: '',
     expiresYear: '',
@@ -21,7 +22,10 @@ const CardForm = () => {
 
   const [isOpen, setIsOpen] = useState (false);
   const [isRed, setIsRed] = useState (false);
+  const[isAmericaExpressCard, setIsAmericaExpressCard] = useState(false);
   const [colorChange, setColorChange] = useState(null);
+  const americanExpressCardRef = useRef(null);
+
   const inputRefs = {
     cardNumberOne: useRef(null),
     cardNumberTwo: useRef(null),
@@ -30,7 +34,9 @@ const CardForm = () => {
     expiresMonth: useRef(null),
     expiresYear: useRef(null),
     cvv: useRef(null),
+    ...(isAmericaExpressCard ? { americanExpressCard: americanExpressCardRef } : {}),
   };
+  
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e, inputName) => {
@@ -39,6 +45,17 @@ const CardForm = () => {
       ...formData,
       [name]: value,
     });
+
+    if (inputName !== 'cvv' && value.length === 4) {
+      const nextInputName = getNextInputName(inputName);
+      if (nextInputName) {
+        if (nextInputName === 'americanExpressCard' && isAmericaExpressCard) {
+          inputRefs[nextInputName].current.focus();
+        } else if (!isAmericaExpressCard) {
+          inputRefs[nextInputName].current.focus();
+        }
+      }
+    } 
 
     if (inputName !== 'cvv' && value.length === 4) {
       const nextInputName = getNextInputName(inputName);
@@ -67,10 +84,8 @@ const CardForm = () => {
     if (currentIndex === -1 || currentIndex === inputNames.length - 1) {
       return null;
     }
-
     return inputNames[currentIndex + 1];
   };
-
 
   const handleSubmit = async e => {
     e.preventDefault ();
@@ -84,9 +99,8 @@ const CardForm = () => {
         cardCVV: formData.cvv,
         cardExpiryDate: formattedDate,
       };
-      console.log(data);
-
       const response = await axios.post(validateUrl, data);
+      console.log('res --> ', response.data)
       if(response.status === 200){
         setIsOpen(!isOpen);
         setColorChange('green');
@@ -106,39 +120,71 @@ const CardForm = () => {
     return Styles.cardValidator
   };
 
+  const cardType = useMemo(() => {
+    return isAmericaExpressCard ? "American Express Card" : "Card Validator";
+  }, [isAmericaExpressCard]);
+  
+  const fullName = useMemo(() => (formData.fullName === '' ? 'PRECIOUS ONYEUKWU' : formData.fullName), [formData.fullName]);
+
+  const cardNumber = useMemo(() => {
+    const numbers = [
+      formData.cardNumberOne === '' ? '0000' : formData.cardNumberOne,
+      formData.cardNumberTwo === '' ? '0000' : formData.cardNumberTwo,
+      formData.cardNumberThree === '' ? '0000' : formData.cardNumberThree,
+      formData.cardNumberFour === '' ? '0000' : formData.cardNumberFour,
+      isAmericaExpressCard && formData.americanExpressCard === '' ? '000' : formData.americanExpressCard,
+    ];
+    return numbers.join(' ');
+  }, [formData.cardNumberOne, formData.cardNumberTwo, formData.americanExpressCard, isAmericaExpressCard, formData.cardNumberThree, formData.cardNumberFour]);
+
+  const expiryDate = useMemo(() => {
+    const month = formData.expiresMonth === '' ? '12' : formData.expiresMonth;
+    const year = formData.expiresYear === '' ? '23' : formData.expiresYear;
+    return `${month}/${year}`;
+  }, [formData.expiresMonth, formData.expiresYear]);
+
+  const cvv = useMemo(() => {
+    if (formData.cvv === '') {
+      return isAmericaExpressCard ? '2277' : '277';
+    }
+    return formData.cvv;
+  }, [formData.cvv, isAmericaExpressCard]);
+
+  const isAmericanExpress = useMemo(() => {
+    const cardPrefix = formData.cardNumberOne.slice(0, 2);
+    return cardPrefix === '37' || cardPrefix === '34';
+  }, [formData.cardNumberOne]);
+  
+
+  useMemo(() => {
+    setIsAmericaExpressCard(isAmericanExpress);
+  }, [isAmericanExpress]);
+
   return (
     <div className={`${Styles.container} ${isOpen && Styles.centerContainer}`}>
       <div className={`${getStyle()}`} style={{backgroundColor: colorChange === 'green' ? 'green' : colorChange === 'red' ? 'red' : 'black'}}>
         <div className={Styles.cardPtag}>
-          <p>Card Validator</p>
+          <p>{cardType}</p>
           <img src={CardLogo} alt="Card Validator" />
         </div>
         <div className={Styles.cardFullNamePtag}>
-          <p>{formData.fullName === '' ? 'PRECIOUS ONYEUKWU' : formData.fullName}</p>
+          <p>{fullName}</p>
         </div>
         <div className={Styles.cardInput}>
           <p>
-            {formData.cardNumberOne === '' ? '0000' :  formData.cardNumberOne}
-            {' '}
-            {formData.cardNumberTwo === '' ? '0000' :  formData.cardNumberTwo}
-            {' '}
-            {formData.cardNumberThree === '' ? '0000' :  formData.cardNumberThree}
-            {' '}
-            {formData.cardNumberFour === '' ? '0000' :  formData.cardNumberFour}
+            {cardNumber}
           </p>
         </div>
         <div className={Styles.cardCvvContain}>
           <div className={Styles.cardExpiryDate}>
             <p>Expiry</p>
             <p>
-              {formData.expiresMonth === '' ? '12' : formData.expiresMonth}
-              /
-              {formData.expiresYear === '' ? '23' : formData.expiresYear}
+              {expiryDate}
             </p>
           </div>
           <div className={Styles.cardCvv}>
             <p>CVV</p>
-            <p><span>{formData.cvv === '' ? '277' : formData.cvv}</span></p>
+            <p><span>{cvv}</span></p>
           </div>
         </div>
       </div>
@@ -204,6 +250,20 @@ const CardForm = () => {
                 ref={inputRefs.cardNumberFour}
               />
             </div>
+            {isAmericaExpressCard && (
+              <div className={Styles.cardNumberThree}>
+                <input
+                  maxLength={3}
+                  type="text"
+                  id={Styles.cardNumberThree}
+                  name="americanExpressCard"
+                  value={formData.americanExpressCard}
+                  onChange={(e)=>handleInputChange(e, 'americanExpressCard')}
+                  placeholder="000"
+                  ref={inputRefs.americanExpressCard}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className={Styles.rightDiv}>
@@ -233,19 +293,35 @@ const CardForm = () => {
               />
             </div>
           </div>
-          <div className={Styles.formGroupCvv}>
-            <p>CVV</p>
-            <input
-              maxLength={4}
-              type="text"
-              id={Styles.cvv}
-              name="cvv"
-              value={formData.cvv}
-              placeholder="CVV"
-              onChange={(e)=>handleInputChange(e, 'cvv')}
-              ref={inputRefs.cvv}
-            />
-          </div>
+          {isAmericaExpressCard ? (
+            <div className={Styles.formGroupCvv}>
+              <p>CVV</p>
+              <input
+                maxLength={4}
+                type="text"
+                id={Styles.cvv}
+                name="cvv"
+                value={formData.cvv}
+                placeholder="CVV"
+                onChange={(e) => handleInputChange(e, 'cvv')}
+                ref={inputRefs.cvv}
+              />
+            </div>
+          ) : (
+            <div className={Styles.formGroupCvv}>
+              <p>CVV</p>
+              <input
+                maxLength={3}
+                type="text"
+                id={Styles.cvv}
+                name="cvv"
+                value={formData.cvv}
+                placeholder="CVV"
+                onChange={(e) => handleInputChange(e, 'cvv')}
+                ref={inputRefs.cvv}
+              />
+            </div>
+          )}
         </div>
         <div className={Styles.btn}>
           <button type="submit">{isLoading ? 'Loading...' : 'Submit'}</button>
