@@ -9,11 +9,7 @@ import RedChecker from '../../assets/RedChecker.svg'
 
 const CardForm = () => {
   const [formData, setFormData] = useState ({
-    cardNumberOne: '',
-    cardNumberTwo: '',
-    cardNumberThree: '',
-    americanExpressCard: '',
-    cardNumberFour: '',
+    cardNumber: '',
     expiresMonth: '',
     expiresYear: '',
     fullName: '',
@@ -24,17 +20,11 @@ const CardForm = () => {
   const [isRed, setIsRed] = useState (false);
   const[isAmericaExpressCard, setIsAmericaExpressCard] = useState(false);
   const [colorChange, setColorChange] = useState(null);
-  const americanExpressCardRef = useRef(null);
 
   const inputRefs = {
-    cardNumberOne: useRef(null),
-    cardNumberTwo: useRef(null),
-    cardNumberThree: useRef(null),
-    cardNumberFour: useRef(null),
     expiresMonth: useRef(null),
     expiresYear: useRef(null),
     cvv: useRef(null),
-    ...(isAmericaExpressCard ? { americanExpressCard: americanExpressCardRef } : {}),
   };
   
   const [isLoading, setIsLoading] = useState(false);
@@ -46,29 +36,13 @@ const CardForm = () => {
       [name]: value,
     });
 
-    if (inputName !== 'cvv' && value.length === 4) {
-      const nextInputName = getNextInputName(inputName);
-      if (nextInputName) {
-        if (nextInputName === 'americanExpressCard' && isAmericaExpressCard) {
-          inputRefs[nextInputName].current.focus();
-        } else if (!isAmericaExpressCard) {
-          inputRefs[nextInputName].current.focus();
-        }
-      }
-    } 
-
-    if (inputName !== 'cvv' && value.length === 4) {
-      const nextInputName = getNextInputName(inputName);
-      if (nextInputName) {
-        inputRefs[nextInputName].current.focus();
-      }
-    }
     if (inputName !== 'cvv' && inputName === 'expiresMonth' && value.length === 2) {
       const nextInputName = getNextInputName(inputName);
       if (nextInputName) {
         inputRefs[nextInputName].current.focus();
       }
-    }   
+    }
+
     if (inputName !== 'cvv' && inputName === 'expiresYear' && value.length === 2) {
       const nextInputName = getNextInputName(inputName);
       if (nextInputName) {
@@ -92,10 +66,8 @@ const CardForm = () => {
     setIsLoading(true);
     try {
       const formattedDate = `${formData.expiresMonth}/${formData.expiresYear.slice(-2)}`;
-      const cardNumber =
-        formData.cardNumberOne + formData.cardNumberTwo + formData.cardNumberThree + formData.cardNumberFour;
       const data = {
-        cardNumber: cardNumber,
+        cardNumber: formData.cardNumber,
         cardCVV: formData.cvv,
         cardExpiryDate: formattedDate,
       };
@@ -127,15 +99,23 @@ const CardForm = () => {
   const fullName = useMemo(() => (formData.fullName === '' ? 'PRECIOUS ONYEUKWU' : formData.fullName), [formData.fullName]);
 
   const cardNumber = useMemo(() => {
-    const numbers = [
-      formData.cardNumberOne === '' ? '0000' : formData.cardNumberOne,
-      formData.cardNumberTwo === '' ? '0000' : formData.cardNumberTwo,
-      formData.cardNumberThree === '' ? '0000' : formData.cardNumberThree,
-      formData.cardNumberFour === '' ? '0000' : formData.cardNumberFour,
-      isAmericaExpressCard && formData.americanExpressCard === '' ? '000' : formData.americanExpressCard,
-    ];
-    return numbers.join(' ');
-  }, [formData.cardNumberOne, formData.cardNumberTwo, formData.americanExpressCard, isAmericaExpressCard, formData.cardNumberThree, formData.cardNumberFour]);
+    let formattedCardNumber = formData.cardNumber || '0000 0000 0000 0000';
+    formattedCardNumber = formattedCardNumber.replace(/ /g, '');
+  
+    if (formattedCardNumber.length === 16) {
+      formattedCardNumber = formattedCardNumber.replace(/(\d{4})/g, '$1 ');
+    }else if(formattedCardNumber.length === 17){
+      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{4})(\d{3})(\d{5})/, '$1 $2 $3 $4');
+    }else if(formattedCardNumber.length === 18){
+      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{4})(\d{4})(\d{5})/, '$1 $2 $3 $4');
+    } 
+    else if (formattedCardNumber.length === 19) {
+      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{5})(\d{4})(\d{5})/, '$1 $2 $3 $4');
+    }
+  
+    return formattedCardNumber;
+  }, [formData.cardNumber]);
+  
 
   const expiryDate = useMemo(() => {
     const month = formData.expiresMonth === '' ? '12' : formData.expiresMonth;
@@ -151,9 +131,9 @@ const CardForm = () => {
   }, [formData.cvv, isAmericaExpressCard]);
 
   const isAmericanExpress = useMemo(() => {
-    const cardPrefix = formData.cardNumberOne.slice(0, 2);
+    const cardPrefix = formData.cardNumber.slice(0, 2);
     return cardPrefix === '37' || cardPrefix === '34';
-  }, [formData.cardNumberOne]);
+  }, [formData.cardNumber]);
   
 
   useMemo(() => {
@@ -204,66 +184,16 @@ const CardForm = () => {
           <div className={Styles.inputFields}>
             <div className={Styles.cardNumberOne}>
               <input
-                maxLength={4}
+                maxLength={19}
+                minLength={16}
                 type="text"
-                id={Styles.cardNumberOne}
-                name="cardNumberOne"
-                value={formData.cardNumberOne}
-                onChange={(e)=>handleInputChange(e, 'cardNumberOne')}
-                placeholder="0000"
-                ref={inputRefs.cardNumberOne}
+                id={Styles.cardNumber}
+                name="cardNumber"
+                value={formData.cardNumber}
+                onChange={(e)=>handleInputChange(e, 'cardNumber')}
+                placeholder="0000 0000 0000 0000"
               />
             </div>
-            <div className={Styles.cardNumberTwo}>
-              <input
-                maxLength={4}
-                type="text"
-                id={Styles.cardNumberTwo}
-                name="cardNumberTwo"
-                value={formData.cardNumberTwo}
-                onChange={(e)=>handleInputChange(e, 'cardNumberTwo')}
-                placeholder="0000"
-                ref={inputRefs.cardNumberTwo}
-              />
-            </div>
-            <div className={Styles.cardNumberThree}>
-              <input
-                maxLength={4}
-                type="text"
-                id={Styles.cardNumberThree}
-                name="cardNumberThree"
-                value={formData.cardNumberThree}
-                onChange={(e)=>handleInputChange(e, 'cardNumberThree')}
-                placeholder="0000"
-                ref={inputRefs.cardNumberThree}
-              />
-            </div>
-            <div className={Styles.cardNumberFour}>
-              <input
-                maxLength={4}
-                type="text"
-                id={Styles.cardNumberFour}
-                name="cardNumberFour"
-                value={formData.cardNumberFour}
-                onChange={(e)=>handleInputChange(e, 'cardNumberFour')}
-                placeholder="0000"
-                ref={inputRefs.cardNumberFour}
-              />
-            </div>
-            {isAmericaExpressCard && (
-              <div className={Styles.cardNumberThree}>
-                <input
-                  maxLength={3}
-                  type="text"
-                  id={Styles.cardNumberThree}
-                  name="americanExpressCard"
-                  value={formData.americanExpressCard}
-                  onChange={(e)=>handleInputChange(e, 'americanExpressCard')}
-                  placeholder="000"
-                  ref={inputRefs.americanExpressCard}
-                />
-              </div>
-            )}
           </div>
         </div>
         <div className={Styles.rightDiv}>
