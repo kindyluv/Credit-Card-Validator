@@ -23,6 +23,7 @@ public class CardService {
     }
 
     public ResponseEntity<CardValidationResponse> validateCard(CreditCardDto cardDto) {
+        System.out.println("I got here");
         List<String> listOfErrors = new ArrayList<>();
 
         String lengthCheck = validationUtil.checkCardNumberLength(cardDto.getCardNumber());
