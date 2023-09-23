@@ -3,9 +3,9 @@ import Styles from '../styles/CardForm.module.css';
 import CheckerModal from '../reusables/CheckerModal';
 import axios from 'axios';
 import {validateUrl} from '../../api/Api';
-import CardLogo from '../../assets/CardLogo.svg';
 import GreenChecker from '../../assets/Checker.svg'
 import RedChecker from '../../assets/RedChecker.svg'
+import Card from './Card';
 
 const CardForm = () => {
   const [formData, setFormData] = useState ({
@@ -72,7 +72,6 @@ const CardForm = () => {
         cardExpiryDate: formattedDate,
       };
       const response = await axios.post(validateUrl, data);
-      console.log('res --> ', response.data)
       if(response.status === 200){
         setIsOpen(!isOpen);
         setColorChange('green');
@@ -86,50 +85,6 @@ const CardForm = () => {
     }
   };
 
-  const getStyle = () => {
-    if (colorChange === 'green') return Styles.colorChange
-    else if (colorChange === 'red') return Styles.colorChangeRed
-    return Styles.cardValidator
-  };
-
-  const cardType = useMemo(() => {
-    return isAmericaExpressCard ? "American Express Card" : "Card Validator";
-  }, [isAmericaExpressCard]);
-  
-  const fullName = useMemo(() => (formData.fullName === '' ? 'PRECIOUS ONYEUKWU' : formData.fullName), [formData.fullName]);
-
-  const cardNumber = useMemo(() => {
-    let formattedCardNumber = formData.cardNumber || '0000 0000 0000 0000';
-    formattedCardNumber = formattedCardNumber.replace(/ /g, '');
-  
-    if (formattedCardNumber.length === 16) {
-      formattedCardNumber = formattedCardNumber.replace(/(\d{4})/g, '$1 ');
-    }else if(formattedCardNumber.length === 17){
-      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{4})(\d{3})(\d{5})/, '$1 $2 $3 $4');
-    }else if(formattedCardNumber.length === 18){
-      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{4})(\d{4})(\d{5})/, '$1 $2 $3 $4');
-    } 
-    else if (formattedCardNumber.length === 19) {
-      formattedCardNumber = formattedCardNumber.replace(/(\d{5})(\d{5})(\d{4})(\d{5})/, '$1 $2 $3 $4');
-    }
-  
-    return formattedCardNumber;
-  }, [formData.cardNumber]);
-  
-
-  const expiryDate = useMemo(() => {
-    const month = formData.expiresMonth === '' ? '12' : formData.expiresMonth;
-    const year = formData.expiresYear === '' ? '23' : formData.expiresYear;
-    return `${month}/${year}`;
-  }, [formData.expiresMonth, formData.expiresYear]);
-
-  const cvv = useMemo(() => {
-    if (formData.cvv === '') {
-      return isAmericaExpressCard ? '2277' : '277';
-    }
-    return formData.cvv;
-  }, [formData.cvv, isAmericaExpressCard]);
-
   const isAmericanExpress = useMemo(() => {
     const cardPrefix = formData.cardNumber.slice(0, 2);
     return cardPrefix === '37' || cardPrefix === '34';
@@ -142,32 +97,7 @@ const CardForm = () => {
 
   return (
     <div className={`${Styles.container} ${isOpen && Styles.centerContainer}`}>
-      <div className={`${getStyle()}`} style={{backgroundColor: colorChange === 'green' ? 'green' : colorChange === 'red' ? 'red' : 'black'}}>
-        <div className={Styles.cardPtag}>
-          <p>{cardType}</p>
-          <img src={CardLogo} alt="Card Validator" />
-        </div>
-        <div className={Styles.cardFullNamePtag}>
-          <p>{fullName}</p>
-        </div>
-        <div className={Styles.cardInput}>
-          <p>
-            {cardNumber}
-          </p>
-        </div>
-        <div className={Styles.cardCvvContain}>
-          <div className={Styles.cardExpiryDate}>
-            <p>Expiry</p>
-            <p>
-              {expiryDate}
-            </p>
-          </div>
-          <div className={Styles.cardCvv}>
-            <p>CVV</p>
-            <p><span>{cvv}</span></p>
-          </div>
-        </div>
-      </div>
+      <Card formData={formData} isAmericaExpressCard={isAmericaExpressCard} colorChange={colorChange}   />
       {!isOpen &&<form className={`${Styles.form} ${isOpen && Styles.disableForm}`} onSubmit={handleSubmit}>
         <div className={Styles.fullNameContain}>
           <p>Card Holder</p>

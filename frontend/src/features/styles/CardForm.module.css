@@ -1,4 +1,343 @@
-.container {
+@media screen and (max-device-width: 424px){
+    .container {
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.centerContainer{
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.colorChange{
+    background-image: conic-gradient(rgb(61, 165, 61), green);    
+    width: 270px;
+    height: 120px;
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 20px 40px 60px 40px;
+}
+.colorChangeRed{
+    background-image: conic-gradient(rgb(214, 73, 73), rgb(195, 0, 0));    
+    width: 270px;
+    height: 120px;
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 20px 40px 60px 40px;
+}
+
+.cardValidator{
+    width: 270px;
+    height: 120px;
+    background: conic-gradient(rgb(66, 65, 65),black);
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 10px 20px 100px 20px;
+}
+
+.form{
+    margin-top: 30px;
+    width: 200px;
+    border: 2.5px solid black;
+    height: 200px;
+    border-radius: 16px;
+    padding: 20px 40px 120px 40px;
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    row-gap: 15%;
+}
+
+.form input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    padding: 15px 0 0 0;
+    width: 100%;
+}
+
+.fullNameContain p, .inputField p, .expiryDate p, .formGroupCvv p{
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.inputFields, .expireForm, .rightDiv{
+    display: flex;
+}
+
+.rightDiv{
+    justify-content: space-between;
+}
+.formGroupCvv, .expireForm{
+    height: 33px;
+}
+.expireForm span{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    height: 95%;
+    border-bottom: 2px solid black;
+}
+
+.expiryDate, .formGroupCvv{
+    width: 80px;
+}
+
+.btn button{
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.cardPtag{
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.cardPtag img{
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-self: flex-end;
+    align-self: flex-end;
+    padding-left: -50px;
+}
+.cardPtag p{
+    text-align: left;
+    display: flex;
+    align-self: center;
+    font-size: 11px;
+}
+.cardInput{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    letter-spacing: 5px;
+}
+.cardInput p{
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.cardCvvContain{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardFullNamePtag{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    height: 20px;
+    font-weight: 500;
+    font-size: 12px;
+}
+.cardExpiryDate, .cardCvv {
+    width: 50%;
+}
+.cardExpiryDate p, .cardCvv p{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.cardExpiryDate p:nth-child(1), .cardCvv p:nth-child(1){
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.cardExpiryDate p:nth-child(2),.cardCvv p:nth-child(2){
+    font-size: 11px;
+    font-weight:4500;
+}
+
+}
+@media screen and (min-device-width: 425px) and (max-device-width: 768px){
+    .container {
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.centerContainer{
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.colorChange{
+    background-image: conic-gradient(rgb(61, 165, 61), green);    
+    width: 300px;
+    height: 170px;
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 20px 40px 60px 40px;
+}
+.colorChangeRed{
+    background-image: conic-gradient(rgb(214, 73, 73), rgb(195, 0, 0));    
+    width: 300px;
+    height: 170px;
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 20px 40px 60px 40px;
+}
+
+.cardValidator{
+    width: 300px;
+    height: 170px;
+    background: conic-gradient(rgb(66, 65, 65),black);
+    color: white;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 10px 40px 80px 40px;
+}
+
+.form{
+    margin-top: 60px;
+    width: 250px;
+    border: 2.5px solid black;
+    height: 300px;
+    border-radius: 16px;
+    padding: 50px 50px 120px 50px;
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    row-gap: 10%;
+}
+
+.form input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+    padding: 15px 0 0 0;
+    width: 100%;
+}
+
+.fullNameContain p, .inputField p, .expiryDate p, .formGroupCvv p{
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.inputFields, .expireForm, .rightDiv{
+    display: flex;
+}
+
+.rightDiv{
+    justify-content: space-between;
+}
+.formGroupCvv, .expireForm{
+    height: 33px;
+}
+.expireForm span{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    height: 95%;
+    border-bottom: 2px solid black;
+}
+
+.expiryDate, .formGroupCvv{
+    width: 100px;
+}
+
+.btn button{
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.cardPtag{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.cardPtag img{
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-self: flex-end;
+    align-self: flex-end;
+    padding-left: -50px;
+}
+.cardPtag p{
+    text-align: left;
+    display: flex;
+    align-self: center;
+    font-size: 13px;
+}
+.cardInput{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    letter-spacing: 5px;
+}
+.cardInput p{
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.cardCvvContain{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardFullNamePtag{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    height: 20px;
+    font-weight: 400;
+    font-size: 13px;
+}
+.cardExpiryDate, .cardCvv {
+    width: 50%;
+}
+.cardExpiryDate p, .cardCvv p{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+}
+
+}
+@media screen and (min-device-width: 768px){
+    .container {
     width: 100%;
     height: 100vh;
     justify-content: center;
@@ -47,9 +386,9 @@
 }
 
 .form{
-    width: 15%;
+    width: 250px;
     border: 2.5px solid black;
-    height: 40%;
+    height: 300px;
     border-radius: 16px;
     padding: 50px 50px 120px 50px;
     display: grid;
@@ -161,3 +500,4 @@
     text-align: left;
 }
 
+}
