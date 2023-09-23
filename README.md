@@ -1,28 +1,57 @@
-# Credit Card Validator
+# Credit Card Validator FullStack
 
-# React.js and Spring Boot Application
+The Credit Card Verification system comprises a JavaScript React.js frontend and a Java Spring Boot backend. The frontend sends API requests to the backend to validate credit cards via its RESTful API.
 
-This repository contains a React.js front-end application and a Spring Boot Java back-end application. Follow the steps below to install the necessary dependencies and start both applications.
+Frontend Tech Stack:
+- JavaScript
+- React.js 18
+- React Router Dom for dynamic page routing
+- Axios for API integration
 
-## Prerequisites
+Backend Tech Stack:
+- Java 11
+- Spring Boot 2.7.15
+- Follows Test Driven Development (TDD) principles
+- Utilizes JUnit 5.10.0 and Mockito 5.5.0 for Unit Testing.
 
-Before you can run the applications, make sure you have the following prerequisites installed:
+### Prerequisites
+#### Frontend
+   - **Node.js and npm**: You need Node.js (version 16 or later) and npm (Node Package Manager) installed on your system. If not, follow the steps below to install them.
+   
+#### Backend
+   - **Java Development Kit (JDK)**: You need a Java Development Kit (JDK) installed. I recommend using JDK 11 or later.
+   - Spring Boot 2.7.15
+   - Maven
 
-1. **Node.js and npm**: You need Node.js (version 16 or later) and npm (Node Package Manager) installed on your system. If not, follow the steps below to install them.
+## Table of Contents
 
-2. **Java Development Kit (JDK)**: You need a Java Development Kit (JDK) installed. I recommend using JDK 11 or later.
+- [Getting Started](#getting-started)
+  - [Node Installation](node_installation) 
+   - [Clone the Repository](clone_the_repository)
+   - [Frontend](#frontend)
+     - [Install FE Dependencies](install_fe_dependencies)
+     - [Run FE Application](run_fe_application)
+     - [Form](form)
+     - [Response](response)
+   - [Backend](#backend)
+     - [Install BE Dependencies](install_be_dependencies)
+     - [Run BE Application](run_be_application)
+     - [API Documentation](api_documentation)
+     - [Testing TDD](testing_tdd)
 
-## Installing Node.js and npm (Node Package Manager)
+
+## Getting Started
+## Node Installation
 
 ### Windows
 
-1. Visit the [official Node.js website](https://nodejs.org/).
+- Visit the [official Node.js website](https://nodejs.org/).
 
-2. Download the LTS (Long Term Support) version of Node.js (which includes npm).
+- Download the LTS (Long Term Support) version of Node.js (which includes npm).
 
-3. Run the installer and follow the installation instructions.
+- Run the installer and follow the installation instructions.
 
-4. After installation, open a command prompt and verify that Node.js and npm are installed by running:
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
      node -v 
@@ -30,8 +59,8 @@ Before you can run the applications, make sure you have the following prerequisi
 
 ### Macos
 
-1. Run `brew install node@16`
-2. After installation, open a command prompt and verify that Node.js and npm are installed by running:
+- Run `brew install node@16`
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
    node -v
@@ -39,37 +68,119 @@ Before you can run the applications, make sure you have the following prerequisi
 
 ### Linux (Ubuntu/Debian)
 
-1. Run `sudo apt update`
-2. Run `sudo apt update`
-3. Run `sudo apt install nodejs npm`
-4. After installation, open a command prompt and verify that Node.js and npm are installed by running:
+- Run `sudo apt update`
+- Run `sudo apt update`
+- Run `sudo apt install nodejs npm`
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
    ```shell
    node -v
    npm -v
 
+### Clone the Repository
+  - To get started clone this repository to your local machine by running the following command on you command prompt or terminal.
+    ```shell
+     git clone https://github.com/kindyluv/credit-card-validator.git
 
-## Running the Spring Boot Java Application
+### Frontend
+The Frontend application is a single page application with a user friendly interface with a card design at the left and a simple input form and a submit form that makes the API call to verify if the card is valid or invalid and get response from the API call.
 
-1. Clone this repository to your local machine
+### Install FE Dependencies
+- After cloning this project navigate to the frontend folder.
    ```shell
-   git clone https://github.com/kindyluv/credit-card-validator.git
+        cd creditCardValidator/frontend
+- Resolve dependencies by running the following command.
+   ```shell
+       yarn
 
-2. Run `cd creditCardValidator/backend/cardValidatingSystem`
-3. Run `./mvnw clean install`
-4. Run `./mvnw spring-boot:run`
-5. The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
+### Run FE Application
+- To start the application run the following command on yor terminal.
+   ```shell
+      yarn run start
+The application will load on <a style="color: blue;">http://localhost:3000</a>
+
+### Form
+   The application requires the following fields in the input:
+   #### Input Form
+   - Card Name
+   - Card Number (max: 19)/(min: 16)
+   - Expiry Date (Month / Year)
+   - CVV
+
+   #### Success Response
+   - When the card validation is successful a green checker modal pops up
+   - and the card changes color to green
+
+   #### Error Response
+   - When the card validation is unsuccessful a red checker modal pops up with a try again message
+     `NB: The submit button is disabled until all the fields are filled`
+
+## Backend
+The Backend application is a single RESTFul API POST call `http://localhost:8080/api/v1/card/validate` 
+
+### Install BE Dependencies
+To resolve the dependencies and start the application follow the steps below:
+- Navigate to the the project folder: 
+     ```shell
+        cd creditCardValidator/backend/cardValidatingSystem
+- To Resolve the dependencies:
+  - Windows
+     ```shell
+        mvn clean install
+   - Linux and MacOS
+     ```shell
+        ./mvnw clean install
+### Run BE Application
+- To start the application
+    - Windows
+        ```shell
+           mvn spring-boot:run
+   - Linux and MacOS
+        ```shell
+           ./mvnw spring-boot:run
+- The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
+
+### API Documentation
+### Overview
+This API provides access to credit card validation. It allows users to verify credit card type and check if it's a valid credit card.
+
+### Base URL
+The base URL for accessing the API is: [http://localhost:8080/api/v1/card/](http://localhost:8080/api/v1/card/)
+
+### Endpoints
+- Validate Card
+- Endpoint: `validate`
+- Method: POST
+- Description: Make a post call to verify a credit card
+- Example Request Body:
+  ```shell
+     {
+        "cardNumber": "5298202628250195",
+        "cardCVV": "781",
+        "cardExpiryDate": "12/23"
+      }
+- Example Response:
+   - Error: 
+     ```shell
+        {
+          "validationStatus": "failed",
+          "validationErrors": [
+              "Expiry date must be within allowed card lifetime",
+              "Card number must be numbers only"
+          ]
+         }
+
+   - Success:
+     ```shell
+        {
+          "validationStatus": "success",
+          "validationErrors": []
+         }
+
+## Contact Information
+- [Email](onyeukwuamara@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/precious-amarachi-onyeukwu/) 
+  
 
    
-## Running the React.js Application
-
-1. Navigate to the creditCardValidator directory.
-2. Run `cd creditCardValidator/frontend`.
-3. Run `yarn` to resolve your dependencies.
-4. Run `yarn run start` to start the frontend application.
-5. Once the development server starts, open a web browser and go to `http://localhost:3000` to access the React.js application.
-
-
-
-
 
