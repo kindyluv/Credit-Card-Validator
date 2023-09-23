@@ -84,6 +84,7 @@ const CardForm = () => {
         cardExpiryDate: formattedDate,
       };
       const response = await axios.post (validateUrl, data);
+      console.log("response --> ", response.data)
       if (response.data.validationStatus === "success") {
         setIsOpen (!isOpen);
         setColorChange ('green');
