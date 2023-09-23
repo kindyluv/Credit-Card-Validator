@@ -1,70 +1,186 @@
-# Getting Started with Create React App
+# Credit Card Validator FullStack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Credit Card Verification system comprises a JavaScript React.js frontend and a Java Spring Boot backend. The frontend sends API requests to the backend to validate credit cards via its RESTful API.
 
-## Available Scripts
+Frontend Tech Stack:
+- JavaScript
+- React.js 18
+- React Router Dom for dynamic page routing
+- Axios for API integration
 
-In the project directory, you can run:
+Backend Tech Stack:
+- Java 11
+- Spring Boot 2.7.15
+- Follows Test Driven Development (TDD) principles
+- Utilizes JUnit 5.10.0 and Mockito 5.5.0 for Unit Testing.
 
-### `npm start`
+### Prerequisites
+#### Frontend
+   - **Node.js and npm**: You need Node.js (version 16 or later) and npm (Node Package Manager) installed on your system. If not, follow the steps below to install them.
+   
+#### Backend
+   - **Java Development Kit (JDK)**: You need a Java Development Kit (JDK) installed. I recommend using JDK 11 or later.
+   - Spring Boot 2.7.15
+   - Maven
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Getting Started](#getting-started)
+  - [Node Installation](node_installation) 
+   - [Clone the Repository](clone_the_repository)
+   - [Frontend](#frontend)
+     - [Install FE Dependencies](install_fe_dependencies)
+     - [Run FE Application](run_fe_application)
+     - [Form](form)
+     - [Response](response)
+   - [Backend](#backend)
+     - [Install BE Dependencies](install_be_dependencies)
+     - [Run BE Application](run_be_application)
+     - [API Documentation](api_documentation)
+     - [Testing TDD](testing_tdd)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
+## Node Installation
 
-### `npm run build`
+### Windows
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Visit the [official Node.js website](https://nodejs.org/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Download the LTS (Long Term Support) version of Node.js (which includes npm).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Run the installer and follow the installation instructions.
 
-### `npm run eject`
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```shell
+     node -v 
+     npm -v
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Macos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Run `brew install node@16`
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```shell
+   node -v
+   npm -v
 
-## Learn More
+### Linux (Ubuntu/Debian)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Run `sudo apt update`
+- Run `sudo apt update`
+- Run `sudo apt install nodejs npm`
+- After installation, open a command prompt and verify that Node.js and npm are installed by running:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```shell
+   node -v
+   npm -v
 
-### Code Splitting
+### Clone the Repository
+  - To get started clone this repository to your local machine by running the following command on you command prompt or terminal.
+    ```shell
+     git clone https://github.com/kindyluv/credit-card-validator.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Frontend
+The Frontend application is a single page application with a user friendly interface with a card design at the left and a simple input form and a submit form that makes the API call to verify if the card is valid or invalid and get response from the API call.
 
-### Analyzing the Bundle Size
+### Install FE Dependencies
+- After cloning this project navigate to the frontend folder.
+   ```shell
+        cd creditCardValidator/frontend
+- Resolve dependencies by running the following command.
+   ```shell
+       yarn
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Run FE Application
+- To start the application run the following command on yor terminal.
+   ```shell
+      yarn run start
+The application will load on <a style="color: blue;">http://localhost:3000</a>
 
-### Making a Progressive Web App
+### Form
+   The application requires the following fields in the input:
+   #### Input Form
+   - Card Name
+   - Card Number (max: 19)/(min: 16)
+   - Expiry Date (Month / Year)
+   - CVV
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   #### Success Response
+   - When the card validation is successful a green checker modal pops up
+   - and the card changes color to green
 
-### Advanced Configuration
+   #### Error Response
+   - When the card validation is unsuccessful a red checker modal pops up with a try again message
+     `NB: The submit button is disabled until all the fields are filled`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Backend
+The Backend application is a single RESTFul API POST call `http://localhost:8080/api/v1/card/validate` 
 
-### Deployment
+### Install BE Dependencies
+To resolve the dependencies and start the application follow the steps below:
+- Navigate to the the project folder: 
+     ```shell
+        cd creditCardValidator/backend/cardValidatingSystem
+- To Resolve the dependencies:
+  - Windows
+     ```shell
+        mvn clean install
+   - Linux and MacOS
+     ```shell
+        ./mvnw clean install
+### Run BE Application
+- To start the application
+    - Windows
+        ```shell
+           mvn spring-boot:run
+   - Linux and MacOS
+        ```shell
+           ./mvnw spring-boot:run
+- The Spring Boot application will start, and you can access it at `http://localhost:8080/api/v1/card/`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### API Documentation
+### Overview
+This API provides access to credit card validation. It allows users to verify credit card type and check if it's a valid credit card.
 
-### `npm run build` fails to minify
+### Base URL
+The base URL for accessing the API is: [http://localhost:8080/api/v1/card/](http://localhost:8080/api/v1/card/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Endpoints
+- Validate Card
+- Endpoint: `validate`
+- Method: POST
+- Description: Make a post call to verify a credit card
+- Example Request Body:
+  ```shell
+     {
+        "cardNumber": "5298202628250195",
+        "cardCVV": "781",
+        "cardExpiryDate": "12/23"
+      }
+- Example Response:
+   - Error: 
+     ```shell
+        {
+          "validationStatus": "failed",
+          "validationErrors": [
+              "Expiry date must be within allowed card lifetime",
+              "Card number must be numbers only"
+          ]
+         }
+
+   - Success:
+     ```shell
+        {
+          "validationStatus": "success",
+          "validationErrors": []
+         }
+
+## Contact Information
+- [Email](onyeukwuamara@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/precious-amarachi-onyeukwu/) 
+  
+
+   
+

@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import Styles from '../styles/CardForm.module.css';
 import CheckerModal from '../reusables/CheckerModal';
 import axios from 'axios';
@@ -21,6 +21,7 @@ const CardForm = () => {
   const [isAmericaExpressCard, setIsAmericaExpressCard] = useState (false);
   const [colorChange, setColorChange] = useState (null);
   const [isFormValid, setIsFormValid] = useState (false);
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const inputRefs = {
     expiresMonth: useRef (null),
@@ -83,18 +84,28 @@ const CardForm = () => {
         cardExpiryDate: formattedDate,
       };
       const response = await axios.post (validateUrl, data);
-      if (response.status === 200) {
+      if (response.data.validationStatus === "success") {
         setIsOpen (!isOpen);
         setColorChange ('green');
+      }else if (response.data.validationStatus === "failed"){
+        setColorChange ('red');
+        setIsRed (!isRed);
+        setErrorMessage(response.data.validationErrors)
+        showError();
       }
     } catch (error) {
       console.error ('Error:', error);
-      setColorChange ('red');
-      setIsRed (!isRed);
     } finally {
       setIsLoading (false);
     }
   };
+
+ 
+const showError = useCallback(() => {
+  for (let value of errorMessage) {
+    alert(value)
+  }
+}, [errorMessage]);
 
   const isAmericanExpress = useMemo (
     () => {

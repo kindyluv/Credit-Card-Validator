@@ -19,6 +19,7 @@ public class CardController {
 
     @PostMapping("validate")
     public ResponseEntity<CardValidationResponse> validateCard(@RequestBody CreditCardDto cardDto) {
-        return cardService.validateCard(cardDto);
+        CardValidationResponse response = cardService.validateCard(cardDto);
+        return ResponseEntity.ok().body(response);
     }
 }

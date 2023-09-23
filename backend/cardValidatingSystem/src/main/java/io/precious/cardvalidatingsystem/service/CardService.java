@@ -22,8 +22,7 @@ public class CardService {
         this.validationUtil = validationUtil;
     }
 
-    public ResponseEntity<CardValidationResponse> validateCard(CreditCardDto cardDto) {
-        System.out.println("I got here");
+    public CardValidationResponse validateCard(CreditCardDto cardDto) {
         List<String> listOfErrors = new ArrayList<>();
 
         String lengthCheck = validationUtil.checkCardNumberLength(cardDto.getCardNumber());
@@ -40,9 +39,9 @@ public class CardService {
 
         if (listOfErrors.isEmpty()) {
             CardValidationResponse response = new CardValidationResponse(VALIDATION_SUCCESSFUL, listOfErrors);
-            return ResponseEntity.ok().body(response);
+            return response;
         }
         CardValidationResponse response = new CardValidationResponse(VALIDATION_FAILED, listOfErrors);
-        return ResponseEntity.badRequest().body(response);
+        return response;
     }
 }
