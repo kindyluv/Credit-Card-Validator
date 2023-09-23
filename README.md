@@ -26,18 +26,18 @@ Backend Tech Stack:
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-  - [Node Installation](node_installation) 
-   - [Clone the Repository](clone_the_repository)
+  - [Node Installation](#node_installation) 
+   - [Clone the Repository](#clone_the_repository)
    - [Frontend](#frontend)
-     - [Install FE Dependencies](install_fe_dependencies)
-     - [Run FE Application](run_fe_application)
-     - [Form](form)
-     - [Response](response)
+     - [Install FE Dependencies](#install_fe_dependencies)
+     - [Run FE Application](#run_fe_application)
+     - [Form](#form)
+     - [Response](#response)
    - [Backend](#backend)
-     - [Install BE Dependencies](install_be_dependencies)
-     - [Run BE Application](run_be_application)
-     - [API Documentation](api_documentation)
-     - [Testing TDD](testing_tdd)
+     - [Install BE Dependencies](#install_be_dependencies)
+     - [Run BE Application](#run_be_application)
+     - [API Documentation](#api_documentation)
+     - [Testing TDD](#testing_tdd)
 
 
 ## Getting Started
