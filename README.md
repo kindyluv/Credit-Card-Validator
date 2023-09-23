@@ -38,6 +38,7 @@ Backend Tech Stack:
      - [Run BE Application](#run-be-application)
      - [API Documentation](#api-documentation)
      - [Testing TDD](#testing-tdd)
+     - [Contact Information](#contact-information)
 
 
 ## Getting Started
@@ -176,6 +177,14 @@ The base URL for accessing the API is: [http://localhost:8080/api/v1/card/](http
           "validationStatus": "success",
           "validationErrors": []
          }
+
+## Testing TDD
+- Windows:
+  ```shell
+     mvn test
+- Linux/MacOS
+  ```shell
+     ./mvnw test
 
 ## Contact Information
 - [Email](onyeukwuamara@gmail.com)
